@@ -59,7 +59,8 @@ public class DialogueController : MonoBehaviour
         if (name == "Sarah"){
             if (!gameController.wandCatched){
                 CurrentDialogue = SarahDialogue1;
-            }else{
+            }
+            else{
                 CurrentDialogue = SarahDialogue2;
             }
         }

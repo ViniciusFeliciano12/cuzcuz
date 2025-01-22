@@ -64,18 +64,20 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.49f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\HeroKnight.cs" />
+    <Compile Include="Assets\Scripts\EnemiesControllers\GolemBossController.cs" />
     <Compile Include="Assets\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
     <Compile Include="Assets\Scripts\GameControllers\PauseController.cs" />
     <Compile Include="Assets\Scripts\ClickableNpc.cs" />
     <Compile Include="Assets\Scripts\EnemiesControllers\GolemController.cs" />
     <Compile Include="Assets\Scripts\GameControllers\GameController.cs" />
-    <Compile Include="Assets\Scripts\Sensor_HeroKnight.cs" />
-    <Compile Include="Assets\Scripts\HeartScript.cs" />
+    <Compile Include="Assets\Scripts\ItemsControllers\HeartScript.cs" />
     <Compile Include="Assets\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
     <Compile Include="Assets\Enemies_RPG\Script\EnemyTest.cs" />
     <Compile Include="Assets\Models\Dialogue.cs" />
     <Compile Include="Assets\Enemies_RPG\Script\EnemySelector.cs" />
+    <Compile Include="Assets\Scripts\HeroScript\Sensor_HeroKnight.cs" />
+    <Compile Include="Assets\Scripts\ItemsControllers\CollectibleItem.cs" />
+    <Compile Include="Assets\Scripts\HeroScript\HeroKnight.cs" />
     <Compile Include="Assets\Scripts\EnemiesControllers\EnemyAttackController.cs" />
     <Compile Include="Assets\Scripts\EnemiesControllers\EnemyController.cs" />
     <Compile Include="Assets\Scripts\GameControllers\DialogueController.cs" />

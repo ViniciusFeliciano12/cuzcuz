@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
     protected Vector2 randomDirection;
     protected Collider2D attackColiderR;
     protected Collider2D attackColiderL;
+    protected Action dropSomething;
     protected bool facingLeft;
     protected float changeDirectionTime = 3f;
     protected float directionTimer;
@@ -59,10 +60,9 @@ public class EnemyController : MonoBehaviour
         animator.SetBool("Hit", true);
         animator.SetBool("Death", true);  
         audioSources[1].Play(); 
-        if (isBoss){
-            GameObject heartPrefab = Resources.Load<GameObject>("Heart");
-            Instantiate(heartPrefab, transform.position, Quaternion.identity);
-        }
+
+        dropSomething?.Invoke();
+
         Destroy(gameObject, 1f); 
     }
 
