@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectibleItem : MonoBehaviour
 {
     private GameController gameController;
+    private bool alreadyGet = false;
 
     void Start()
     {
@@ -13,8 +12,9 @@ public class CollectibleItem : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player") && gameController != null){
+        if(other.CompareTag("Player") && gameController != null && !alreadyGet){
             Destroy(gameObject, 1f);
+            alreadyGet = true;
             gameController.wandCatched = true;
         }
     }

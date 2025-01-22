@@ -3,33 +3,27 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ClickableNpc : MonoBehaviour
+public class ClickableController : MonoBehaviour
 {
-    public string npcName; // Nome do NPC
-    private GameController gameController;
-    private DialogueController dialogueController;
-    private Renderer npcRenderer;
-    private Color originalColor;
+    public bool clickable;
+    protected GameController gameController;
+    protected Renderer npcRenderer;
+    protected Color originalColor;
 
-    void Start()
+    protected virtual void Start()
     {
         npcRenderer = GetComponent<Renderer>();
         gameController = FindObjectOfType<GameController>();
-        dialogueController = FindObjectOfType<DialogueController>();
 
         if (npcRenderer != null)
         {
             originalColor = npcRenderer.material.color;
         }
     }
-    void OnMouseDown()
-    {
-        dialogueController.PlayDialogue(npcName);
-    }
 
     void OnMouseEnter()
     {
-        if (npcRenderer != null && gameController != null)
+        if (npcRenderer != null && gameController != null && clickable)
         {
             npcRenderer.material.color = Color.yellow;
             gameController.canAttack = false;
@@ -38,7 +32,7 @@ public class ClickableNpc : MonoBehaviour
 
     void OnMouseExit()
     {
-        if (npcRenderer != null && gameController != null)
+        if (npcRenderer != null && gameController != null && clickable)
         {
             npcRenderer.material.color = originalColor; 
             gameController.canAttack = true;

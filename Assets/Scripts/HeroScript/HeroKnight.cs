@@ -49,10 +49,6 @@ public class HeroKnight : MonoBehaviour
         m_attackSensorL = transform.Find("AttackSensor_L").GetComponent<Collider2D>();
     }
 
-    public void RegenLife(){
-        gameController.GoToMaxLife();
-    }
-
     public void GetHit(){
         if (m_isDeath){
             return;

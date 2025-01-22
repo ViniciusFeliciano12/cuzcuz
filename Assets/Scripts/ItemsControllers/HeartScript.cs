@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class HeartScript : MonoBehaviour
 {
-    private bool get = false;
+    private bool alreadyGet = false;
+    private GameController gameController;
+    private AudioSource audioSource;
+    void Start(){
+        gameController = FindObjectOfType<GameController>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player") && !get){
-            get = true;
-            HeroKnight heroKnight = other.GetComponent<HeroKnight>();
-            if (heroKnight != null)
-            {
-                heroKnight.RegenLife();
+        if(other.CompareTag("Player") && !alreadyGet){
+            alreadyGet = true;
+
+            if (gameController != null){
+                gameController.GoToMaxLife();
             }
-            var audioSources = GetComponents<AudioSource>();
-            audioSources[0].Play();
+
+            if (audioSource != null){
+                audioSource.Play();
+            }
+            
             Destroy(gameObject, 1.5f);
         }
     }
