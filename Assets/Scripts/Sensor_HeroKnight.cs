@@ -35,7 +35,6 @@ public class Sensor_HeroKnight : MonoBehaviour {
         else if (other is not CircleCollider2D){
             m_ColCount++;
         }
-        
     }
 
     void OnTriggerExit2D(Collider2D other)

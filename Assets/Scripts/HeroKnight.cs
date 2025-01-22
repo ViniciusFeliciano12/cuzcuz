@@ -20,7 +20,7 @@ public class HeroKnight : MonoBehaviour
     private Sensor_HeroKnight   m_wallSensorL2;
     private Collider2D   m_attackSensorR;
     private Collider2D   m_attackSensorL;
-    public GameController gameController;
+    private GameController gameController;
     private bool                m_isDeath = false;
     private bool                m_isWallSliding = false;
     private bool                m_grounded = false;
@@ -39,6 +39,7 @@ public class HeroKnight : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
         m_audioSources = GetComponents<AudioSource>();
+        gameController = FindObjectOfType<GameController>();
         m_groundSensor = transform.Find("GroundSensor").GetComponent<Sensor_HeroKnight>();
         m_wallSensorR1 = transform.Find("WallSensor_R1").GetComponent<Sensor_HeroKnight>();
         m_wallSensorR2 = transform.Find("WallSensor_R2").GetComponent<Sensor_HeroKnight>();
@@ -46,6 +47,10 @@ public class HeroKnight : MonoBehaviour
         m_wallSensorL2 = transform.Find("WallSensor_L2").GetComponent<Sensor_HeroKnight>();
         m_attackSensorR = transform.Find("AttackSensor_R").GetComponent<Collider2D>();
         m_attackSensorL = transform.Find("AttackSensor_L").GetComponent<Collider2D>();
+    }
+
+    public void RegenLife(){
+        gameController.GoToMaxLife();
     }
 
     public void GetHit(){
@@ -71,8 +76,7 @@ public class HeroKnight : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        // Increase timer that controls attack combo
-        if (m_isDeath){
+        if (m_isDeath || !gameController.playerActive){
             return;
         }
 
@@ -140,7 +144,7 @@ public class HeroKnight : MonoBehaviour
             m_animator.SetTrigger("Hurt");
 
         //Attack
-        else if(Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.5f && !m_rolling)
+        else if(Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.5f && !m_rolling && gameController.canAttack)
         {
             m_currentAttack++;
 
