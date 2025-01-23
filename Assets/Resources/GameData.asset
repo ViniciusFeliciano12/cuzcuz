@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7dbfcbe3a54e3ce48b33c34258bbdbb3, type: 3}
-  m_Name: OriginalDialogues
+  m_Name: GameData
   m_EditorClassIdentifier: 
   useSaveData: 1
   Player:
-    posX: -19.09
-    posY: 0.47
+    posX: 17.564518
+    posY: 3.9463954
     lifesRemaining: 5
     getSpaceWand: 0
   NpcsDialogues:
@@ -26,30 +26,38 @@ MonoBehaviour:
       - Name: "Voc\xEA"
         Text: Bom dia senhora, estou perdido nessas florestas e preciso prosseguir.
           Como eu poderia atravessar esse abismo?
+        EventKey: 
       - Name: Sarah
         Text: "Ol\xE1 viajante. Muitos anos atr\xE1s, um monstro atacou essa floresta.
           Ele foi selado nas profundezas dela por um m\xE1gico poderoso, em uma caverna."
+        EventKey: 
       - Name: Sarah
         Text: "Esse mago tamb\xE9m foi derrotado no duelo, e a criatura foi fatalmente
           ferida e pegou sua varinha antes de ser selada."
+        EventKey: 
       - Name: Sarah
         Text: "A unica forma de passar atrav\xE9s do abismo \xE9 recolhendo a varinha
           m\xE1gica que o monstro guarda. Ela permite que voc\xEA se transporte entre
           os grim\xF3rios do mago, como aquele do outro lado."
+        EventKey: 
       - Name: Sarah
         Text: "Se for bravo o suficiente para enfrenta-lo e mata-lo, ajudar\xE1 essas
           terras e poder\xE1 prosseguir."
+        EventKey: 
       - Name: Sarah
         Text: Boa sorte!
-      AlreadyUsed: 0
+        EventKey: OpenPath
+      AlreadyUsed: 1
     - DialogueName: Sarah2
       lines:
       - Name: Sarah
         Text: Derrote o monstro nas profundezas da floresta, viajante!
+        EventKey: 
       AlreadyUsed: 0
     - DialogueName: Sarah3
       lines:
       - Name: Sarah
         Text: "Parab\xE9ns! Voc\xEA conseguiu matar ele! Muito obrigada. Agora conseguir\xE1
           passar pelo abismo!"
+        EventKey: 
       AlreadyUsed: 0

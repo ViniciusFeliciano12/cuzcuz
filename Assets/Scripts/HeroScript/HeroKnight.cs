@@ -49,8 +49,9 @@ public class HeroKnight : MonoBehaviour
         m_attackSensorR = transform.Find("AttackSensor_R").GetComponent<Collider2D>();
         m_attackSensorL = transform.Find("AttackSensor_L").GetComponent<Collider2D>();
 
-        Vector2 position = new(x: gameController.gameData.Player.posX, y: gameController.gameData.Player.posY);
-        transform.position = position;
+        if (gameController != null){
+            transform.position = gameController.GetPlayerPosition();;
+        }
     }
 
     public void GetHit(){
@@ -78,8 +79,7 @@ public class HeroKnight : MonoBehaviour
 
         if (timer >= 5f)
         {
-            gameController.gameData.Player.posX = transform.position.x;
-            gameController.gameData.Player.posY = transform.position.y;
+            gameController.SavePlayerPosition(transform);
             timer = 0f;
         }
     }

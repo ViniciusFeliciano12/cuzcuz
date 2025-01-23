@@ -45,7 +45,7 @@ public class PauseController : MonoBehaviour
 
     public void ReloadGame(int actualScene){
         SceneManager.LoadScene(actualScene);
-        gameController.gameData.ResetData();
+        gameController.ResetGame();
         ContinueGame();
     }
 

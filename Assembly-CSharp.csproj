@@ -68,6 +68,7 @@
     <Compile Include="Assets\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
     <Compile Include="Assets\Scripts\GameControllers\PauseController.cs" />
     <Compile Include="Assets\Scripts\ClickableControllers\ClickableController.cs" />
+    <Compile Include="Assets\Scripts\GameControllers\EventManager.cs" />
     <Compile Include="Assets\Scripts\EnemiesControllers\GolemController.cs" />
     <Compile Include="Assets\Scripts\GameControllers\GameController.cs" />
     <Compile Include="Assets\Scripts\ItemsControllers\HeartScript.cs" />

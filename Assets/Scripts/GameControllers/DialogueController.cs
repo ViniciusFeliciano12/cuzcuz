@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -6,19 +5,21 @@ using static GameData;
 
 public class DialogueController : MonoBehaviour
 {
-    public GameData gameData;
-    private NpcDialogue[] dialogueData;  
-    private Dialogues CurrentDialogue;
-    public GameController gameController;
     public Canvas dialogueCanvas; 
     private TextMeshProUGUI nameText;  
     private TextMeshProUGUI messageText;
+    
+    private GameController gameController;
+
+    private NpcDialogue[] dialogueData;  
+    private Dialogues CurrentDialogue;
     private int currentDialogueIndex = 0; 
-    private bool isDialogueActive = false;
+
 
     void Start()
     {
-        dialogueData = gameController.gameData.NpcsDialogues;
+        gameController = FindObjectOfType<GameController>();
+        dialogueData = gameController.GetDialogueData();
 
         nameText = dialogueCanvas.transform.Find("Name").GetComponent<TextMeshProUGUI>();
         messageText = dialogueCanvas.transform.Find("Message").GetComponent<TextMeshProUGUI>();
@@ -32,13 +33,11 @@ public class DialogueController : MonoBehaviour
     public void PlayDialogue(string name){
         SelectDialogue(name);
         dialogueCanvas.enabled = true;
-        isDialogueActive = true;
         gameController.playerActive = false;
     }
     private void EndDialogue()
     {
         dialogueCanvas.enabled = false;
-        isDialogueActive = false;
         gameController.playerActive = true;
         CurrentDialogue.AlreadyUsed = true;
         currentDialogueIndex = 0;
@@ -49,7 +48,7 @@ public class DialogueController : MonoBehaviour
         {
             var sarahDialogues = dialogueData.FirstOrDefault(item => item.NpcName == "Sarah").NpcDialogues;
 
-            if (!gameController.gameData.Player.getSpaceWand)
+            if (!gameController.VerifyFlag(GameFlags.SpaceWand))
             {
                 CurrentDialogue = sarahDialogues[0].AlreadyUsed ? sarahDialogues[1] : sarahDialogues[0];
             }
@@ -60,10 +59,9 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && isDialogueActive)
+        if (Input.GetMouseButtonDown(0) && dialogueCanvas.enabled)
         {
             ShowNextDialogue();
         }
@@ -77,6 +75,9 @@ public class DialogueController : MonoBehaviour
             nameText.text = currentDialogue.Name;
             messageText.text = currentDialogue.Text;
             currentDialogueIndex++;
+            if (!string.IsNullOrEmpty(currentDialogue.EventKey)){
+                gameController.InvokeEvent(currentDialogue.EventKey);
+            }
         }
         else
         {

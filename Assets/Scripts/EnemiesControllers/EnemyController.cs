@@ -49,13 +49,13 @@ public class EnemyController : MonoBehaviour
             lifes--;
 
             switch(lifes){
-                case 0: Dead(); break;
+                case 0: Die(); break;
                 default: TakeDamage(); break;
             }
         }   
     }
 
-    private void Dead(){
+    private void Die(){
         isDeath = true;
         animator.SetBool("Hit", true);
         animator.SetBool("Death", true);  

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "NewDialogue", menuName = "Dialogue System/Dialogue")]
 public class GameData : ScriptableObject
@@ -8,6 +9,7 @@ public class GameData : ScriptableObject
     {
         public string Name;
         [TextArea] public string Text;
+        public string EventKey;
     }
     
     [System.Serializable]

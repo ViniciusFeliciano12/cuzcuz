@@ -9,8 +9,9 @@ public class GolemBossController : GolemController
     void Start(){
         gameController = FindAnyObjectByType<GameController>();
 
-        if (gameController.gameData.Player.getSpaceWand){
+        if (gameController.VerifyBossKilled(Bosses.FirstGolemBoss)){
             Destroy(gameObject);
+            return;
         }
 
         attackColiderR = transform.Find("Enemy_SensorR").GetComponent<Collider2D>();
@@ -21,7 +22,7 @@ public class GolemBossController : GolemController
         
         dropSomething = GolemBossDropsWandAndHeart;
     }
-
+    
     public void GolemBossDropsWandAndHeart(){
         GameObject heartPrefab = Resources.Load<GameObject>("Heart");
         Instantiate(heartPrefab, transform.position, Quaternion.identity);
