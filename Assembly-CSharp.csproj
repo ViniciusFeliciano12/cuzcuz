@@ -74,8 +74,8 @@
     <Compile Include="Assets\Scripts\ClickableControllers\TeleportController.cs" />
     <Compile Include="Assets\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
     <Compile Include="Assets\Enemies_RPG\Script\EnemyTest.cs" />
-    <Compile Include="Assets\Models\Dialogue.cs" />
     <Compile Include="Assets\Scripts\ClickableControllers\NpcController.cs" />
+    <Compile Include="Assets\Models\DialogueData.cs" />
     <Compile Include="Assets\Enemies_RPG\Script\EnemySelector.cs" />
     <Compile Include="Assets\Scripts\HeroScript\Sensor_HeroKnight.cs" />
     <Compile Include="Assets\Scripts\ItemsControllers\CollectibleItem.cs" />

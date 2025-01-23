@@ -15,7 +15,7 @@ public class CollectibleItem : MonoBehaviour
         if(other.CompareTag("Player") && gameController != null && !alreadyGet){
             Destroy(gameObject, 1f);
             alreadyGet = true;
-            gameController.wandCatched = true;
+            gameController.catchWand();
         }
     }
 }

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbfcbe3a54e3ce48b33c34258bbdbb3, type: 3}
+  m_Name: OriginalDialogues
+  m_EditorClassIdentifier: 
+  useSaveData: 1
+  Player:
+    posX: -19.09
+    posY: 0.47
+    lifesRemaining: 5
+    getSpaceWand: 0
+  NpcsDialogues:
+  - NpcName: Sarah
+    NpcDialogues:
+    - DialogueName: Sarah1
+      lines:
+      - Name: "Voc\xEA"
+        Text: Bom dia senhora, estou perdido nessas florestas e preciso prosseguir.
+          Como eu poderia atravessar esse abismo?
+      - Name: Sarah
+        Text: "Ol\xE1 viajante. Muitos anos atr\xE1s, um monstro atacou essa floresta.
+          Ele foi selado nas profundezas dela por um m\xE1gico poderoso, em uma caverna."
+      - Name: Sarah
+        Text: "Esse mago tamb\xE9m foi derrotado no duelo, e a criatura foi fatalmente
+          ferida e pegou sua varinha antes de ser selada."
+      - Name: Sarah
+        Text: "A unica forma de passar atrav\xE9s do abismo \xE9 recolhendo a varinha
+          m\xE1gica que o monstro guarda. Ela permite que voc\xEA se transporte entre
+          os grim\xF3rios do mago, como aquele do outro lado."
+      - Name: Sarah
+        Text: "Se for bravo o suficiente para enfrenta-lo e mata-lo, ajudar\xE1 essas
+          terras e poder\xE1 prosseguir."
+      - Name: Sarah
+        Text: Boa sorte!
+      AlreadyUsed: 0
+    - DialogueName: Sarah2
+      lines:
+      - Name: Sarah
+        Text: Derrote o monstro nas profundezas da floresta, viajante!
+      AlreadyUsed: 0
+    - DialogueName: Sarah3
+      lines:
+      - Name: Sarah
+        Text: "Parab\xE9ns! Voc\xEA conseguiu matar ele! Muito obrigada. Agora conseguir\xE1
+          passar pelo abismo!"
+      AlreadyUsed: 0

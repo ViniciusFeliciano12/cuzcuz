@@ -31,6 +31,7 @@ public class HeroKnight : MonoBehaviour
     private float               m_delayToIdle = 0.0f;
     private float               m_rollDuration = 8.0f / 14.0f;
     private float               m_rollCurrentTime;
+    private float               timer = 0f;
 
 
     // Use this for initialization
@@ -47,6 +48,9 @@ public class HeroKnight : MonoBehaviour
         m_wallSensorL2 = transform.Find("WallSensor_L2").GetComponent<Sensor_HeroKnight>();
         m_attackSensorR = transform.Find("AttackSensor_R").GetComponent<Collider2D>();
         m_attackSensorL = transform.Find("AttackSensor_L").GetComponent<Collider2D>();
+
+        Vector2 position = new(x: gameController.gameData.Player.posX, y: gameController.gameData.Player.posY);
+        transform.position = position;
     }
 
     public void GetHit(){
@@ -67,6 +71,17 @@ public class HeroKnight : MonoBehaviour
 
         Destroy(gameObject, 1.5f);
         m_animator.SetBool("Death", true);
+    }
+
+    void FixedUpdate(){
+        timer += Time.fixedDeltaTime; 
+
+        if (timer >= 5f)
+        {
+            gameController.gameData.Player.posX = transform.position.x;
+            gameController.gameData.Player.posY = transform.position.y;
+            timer = 0f;
+        }
     }
 
     // Update is called once per frame

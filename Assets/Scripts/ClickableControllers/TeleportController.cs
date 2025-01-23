@@ -24,7 +24,7 @@ public class TeleportController : ClickableController
     {
         FloatEffect();
 
-        clickable = gameController.wandCatched;
+        clickable = gameController.gameData.Player.getSpaceWand;
     }
 
     void OnMouseDown()

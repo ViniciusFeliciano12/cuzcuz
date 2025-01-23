@@ -6,8 +6,13 @@ using UnityEngine.SceneManagement;
 public class PauseController : MonoBehaviour
 {
     public Canvas menuUI;
-    public GameController gameController;
+    private GameController gameController;
     private bool isPaused = false;
+
+    void Start(){
+        gameController = FindObjectOfType<GameController>();
+    }
+    
     void Update(){
         if(Input.GetKeyDown(KeyCode.Escape)){
            if (isPaused)
@@ -34,11 +39,13 @@ public class PauseController : MonoBehaviour
     }
 
     public void ExitGame(){
+        Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
 
     public void ReloadGame(int actualScene){
         SceneManager.LoadScene(actualScene);
+        gameController.gameData.ResetData();
         ContinueGame();
     }
 

@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class GolemBossController : GolemController
 {
+    private GameController gameController;
+
     void Start(){
+        gameController = FindAnyObjectByType<GameController>();
+
+        if (gameController.gameData.Player.getSpaceWand){
+            Destroy(gameObject);
+        }
+
         attackColiderR = transform.Find("Enemy_SensorR").GetComponent<Collider2D>();
         attackColiderL = transform.Find("Enemy_SensorL").GetComponent<Collider2D>();
         audioSources = GetComponents<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-
+        
         dropSomething = GolemBossDropsWandAndHeart;
     }
 

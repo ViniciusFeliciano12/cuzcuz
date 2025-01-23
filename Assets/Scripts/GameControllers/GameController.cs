@@ -5,39 +5,43 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public GameData gameData;
     public GameObject textGameObject;
     public bool canAttack = true;
     public bool playerActive = true;
     private TextMeshProUGUI Text;
-    private int lifesRemaining = 5;
-    
-    public bool wandCatched = false;
+
+    void Start(){
+        gameData.useSaveData = true;
+        
+        Text = textGameObject.GetComponent<TextMeshProUGUI>();
+        Text.text = gameData.Player.lifesRemaining.ToString() + "/5";
+    }
+
+    public void catchWand(){
+        gameData.Player.getSpaceWand = true;
+    }
 
     public int DecreaseCounter(){
-        lifesRemaining--;
-        Text.text = lifesRemaining.ToString() + "/5";
-
-        if (lifesRemaining == 0){
+        gameData.Player.lifesRemaining--;
+        Text.text = gameData.Player.lifesRemaining.ToString() + "/5";
+        
+        if (gameData.Player.lifesRemaining == 0){
             GameOver();
         }
 
-        return lifesRemaining;
+        return gameData.Player.lifesRemaining;
     }
 
     public int GoToMaxLife(){
-        lifesRemaining = 5;
+        gameData.Player.lifesRemaining = 5;
         Text.text = "5/5";
 
-        return lifesRemaining;
+        return gameData.Player.lifesRemaining;
     }
 
     public void GameOver(){
-        // SceneManager.LoadScene(0);
-    }
-
-    void Start()
-    {
-        Text = textGameObject.GetComponent<TextMeshProUGUI>();
-        Text.text = "5/5";
+        gameData.ResetData();
+        SceneManager.LoadScene(0);
     }
 }
