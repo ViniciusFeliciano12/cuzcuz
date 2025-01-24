@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbfcbe3a54e3ce48b33c34258bbdbb3, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  useSaveData: 1
+  useSaveData: 0
   Player:
-    posX: 17.564518
-    posY: 3.9463954
+    posX: 16.978153
+    posY: 3.9466724
     lifesRemaining: 5
     getSpaceWand: 0
   NpcsDialogues:
@@ -45,9 +45,9 @@ MonoBehaviour:
           terras e poder\xE1 prosseguir."
         EventKey: 
       - Name: Sarah
-        Text: Boa sorte!
+        Text: Irei liberar o selo. Boa sorte!
         EventKey: OpenPath
-      AlreadyUsed: 1
+      AlreadyUsed: 0
     - DialogueName: Sarah2
       lines:
       - Name: Sarah

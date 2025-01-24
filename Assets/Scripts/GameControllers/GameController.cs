@@ -8,18 +8,13 @@ public class GameController : MonoBehaviour
 {
     public GameObject textGameObject;
     public bool canAttack = true;
-    
-    [SerializeField]
     private GameData gameData;
     public bool playerActive = true;
     private TextMeshProUGUI Text;
-    private PauseController pauseController;
-    private DialogueController dialogueController;
     private EventManager eventManager;
 
     void Start(){
-        pauseController = FindObjectOfType<PauseController>();
-        dialogueController = FindObjectOfType<DialogueController>();
+        gameData = Resources.Load<GameData>("GameData");
         eventManager = FindObjectOfType<EventManager>();
         Text = textGameObject.GetComponent<TextMeshProUGUI>();
 
@@ -27,12 +22,16 @@ public class GameController : MonoBehaviour
     }
 
     public void InvokeEvent(string key){
-        if (dialogueController != null){
+        if (eventManager != null){
             eventManager.InvokeEvent(key);
         }
     }
 
     public void GameOver(){
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
+
         gameData.ResetData();
         SceneManager.LoadScene(0);
     }
@@ -41,16 +40,26 @@ public class GameController : MonoBehaviour
     #region DatabaseState
 
     private void LoadGame(){
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
+
         gameData.useSaveData = true;
 
         Text.text = gameData.Player.lifesRemaining.ToString() + "/5";
     }
 
     public void ResetGame(){
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
         gameData.ResetData();
     }
 
     public void UpdateDatabaseFlag(GameFlags flag, bool state){
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
 
         switch(flag){
             case GameFlags.SpaceWand: gameData.Player.getSpaceWand = state; break;
@@ -63,6 +72,10 @@ public class GameController : MonoBehaviour
     #region VerifyFlags
 
     public bool VerifyFlag(GameFlags flag){
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
+
         return flag switch
         {
             GameFlags.SpaceWand => gameData.Player.getSpaceWand,
@@ -72,7 +85,9 @@ public class GameController : MonoBehaviour
     }
 
     public bool VerifyBossKilled(Bosses boss){
-
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
         return boss switch
         {
             Bosses.FirstGolemBoss => gameData.Player.getSpaceWand,
@@ -84,11 +99,17 @@ public class GameController : MonoBehaviour
 
     #region PlayerPosition
     public void SavePlayerPosition(Transform playerTransform){
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
         gameData.Player.posX = playerTransform.position.x;
         gameData.Player.posY = playerTransform.position.y;
     }
 
     public Vector2 GetPlayerPosition(){
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
         return new Vector2(x: gameData.Player.posX, y: gameData.Player.posY);
     }
 
@@ -97,6 +118,9 @@ public class GameController : MonoBehaviour
     #region Life Management
 
     public int DecreaseCounter(){
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
         gameData.Player.lifesRemaining--;
         Text.text = gameData.Player.lifesRemaining.ToString() + "/5";
         
@@ -108,6 +132,9 @@ public class GameController : MonoBehaviour
     }
 
     public int GoToMaxLife(){
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
         gameData.Player.lifesRemaining = 5;
         Text.text = "5/5";
 
@@ -119,6 +146,9 @@ public class GameController : MonoBehaviour
     #region DialoguesManagement
     
     public NpcDialogue[] GetDialogueData(){
+        if (gameData == null){
+            gameData = Resources.Load<GameData>("GameData");
+        }
         return gameData.NpcsDialogues;
     }
 

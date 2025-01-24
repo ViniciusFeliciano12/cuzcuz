@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,7 +10,9 @@ public class EventManager : MonoBehaviour
     private Tilemap tilemap; 
     private Dictionary<string, UnityEngine.Events.UnityAction> eventMappings;
     private GameController gameController;
+    private CinemachineVirtualCamera cinemachineCamera; 
     void Start(){
+        cinemachineCamera = FindObjectOfType<CinemachineVirtualCamera>();
         tilemap = FindObjectOfType<Tilemap>();
         gameController = FindObjectOfType<GameController>();
 
@@ -21,6 +25,8 @@ public class EventManager : MonoBehaviour
             RemoveFirstSeal();
         }
     }
+
+    //eventMappings do dictionary
 
     private void InstantiateMappings(){
         eventMappings = new Dictionary<string, UnityEngine.Events.UnityAction>
@@ -36,45 +42,54 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    //eventMappings do dictionary
-    private void SarahDialogueOneAction(){
-        //mira a câmera nos tilemaps
+    private System.Collections.IEnumerator HandleDialogueCameraSequence()
+    {
+        gameController.playerActive = false;
 
-        //remove tilemaps específicos
-        RemoveFirstSeal();
+        var lookAtHereTransform = GameObject.Find("LookAtHere");
+        AudioSource looktAtHereAudioSource = null; 
+
+        if (lookAtHereTransform != null)
+        {
+            cinemachineCamera.Follow = lookAtHereTransform.transform;
+            looktAtHereAudioSource = lookAtHereTransform.GetComponent<AudioSource>();
+        }
+
+        yield return new WaitForSeconds(2.0f);
+
+        RemoveFirstSeal(looktAtHereAudioSource);
+
+        yield return new WaitForSeconds(2.0f);
+
+        HeroKnight player = FindObjectOfType<HeroKnight>();
+        if (player != null)
+        {
+            cinemachineCamera.Follow = player.transform;
+        }
+
+        gameController.playerActive = true;
     }
 
+    private void SarahDialogueOneAction(){
+        StartCoroutine(HandleDialogueCameraSequence());
+    }
 
     //eventos padrões
-    private void RemoveFirstSeal(){
+    private void RemoveFirstSeal(AudioSource audioSource = null){
         if (tilemap != null)
         {
-            Vector3Int position1 = new(){x = 4, y = -3, z = 0};
-            Vector3Int position2 = new(){x = 5, y = -3, z = 0};
-            Vector3Int position3 = new(){x = 6, y = -3, z = 0};
-            Vector3Int position4 = new(){x = 7, y = -3, z = 0};
-            Vector3Int position5 = new(){x = 4, y = -4, z = 0};
-            Vector3Int position6 = new(){x = 5, y = -4, z = 0};
-            Vector3Int position7 = new(){x = 6, y = -4, z = 0};
+            tilemap.SetTile(new(){x = 4, y = -3, z = 0}, null);
+            tilemap.SetTile(new(){x = 5, y = -3, z = 0}, null);
+            tilemap.SetTile(new(){x = 6, y = -3, z = 0}, null);
+            tilemap.SetTile(new(){x = 7, y = -3, z = 0}, null);
+            tilemap.SetTile(new(){x = 4, y = -4, z = 0}, null);
+            tilemap.SetTile(new(){x = 5, y = -4, z = 0}, null);
+            tilemap.SetTile(new(){x = 6, y = -4, z = 0}, null);
 
-            tilemap.SetTile(position1, null);
-            tilemap.SetTile(position2, null);
-            tilemap.SetTile(position3, null);
-            tilemap.SetTile(position4, null);
-            tilemap.SetTile(position5, null);
-            tilemap.SetTile(position6, null);
-            tilemap.SetTile(position7, null);
+            tilemap.RefreshAllTiles();
 
-            TilemapCollider2D collider = tilemap.GetComponent<TilemapCollider2D>();
-            if (collider != null)
-            {
-                tilemap.RefreshTile(position1);
-                tilemap.RefreshTile(position2);
-                tilemap.RefreshTile(position3);
-                tilemap.RefreshTile(position4);
-                tilemap.RefreshTile(position5);
-                tilemap.RefreshTile(position6);
-                tilemap.RefreshTile(position7);
+            if (audioSource !=  null){
+                audioSource.Play();
             }
 
             Debug.Log($"Tiles removidos");

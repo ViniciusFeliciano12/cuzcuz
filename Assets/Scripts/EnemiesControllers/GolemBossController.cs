@@ -8,12 +8,6 @@ public class GolemBossController : GolemController
 
     void Start(){
         gameController = FindAnyObjectByType<GameController>();
-
-        if (gameController.VerifyBossKilled(Bosses.FirstGolemBoss)){
-            Destroy(gameObject);
-            return;
-        }
-
         attackColiderR = transform.Find("Enemy_SensorR").GetComponent<Collider2D>();
         attackColiderL = transform.Find("Enemy_SensorL").GetComponent<Collider2D>();
         audioSources = GetComponents<AudioSource>();
@@ -21,8 +15,17 @@ public class GolemBossController : GolemController
         animator = GetComponent<Animator>();
         
         dropSomething = GolemBossDropsWandAndHeart;
+        StartCoroutine(ExecuteAfterFrame());
     }
-    
+
+    private System.Collections.IEnumerator ExecuteAfterFrame()
+    {
+        yield return new WaitForEndOfFrame(); 
+        if (gameController.VerifyBossKilled(Bosses.FirstGolemBoss)){
+            Destroy(gameObject);
+        }
+    }
+
     public void GolemBossDropsWandAndHeart(){
         GameObject heartPrefab = Resources.Load<GameObject>("Heart");
         Instantiate(heartPrefab, transform.position, Quaternion.identity);
