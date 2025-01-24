@@ -35,6 +35,11 @@ public class GameData : ScriptableObject
 
     public void ResetData()
     {
+        Player.posX = -19.09f;
+        Player.posY = 0.47f;
+        Player.getSpaceWand = false;
+        Player.lifesRemaining = 5;
+
         foreach (var npc in NpcsDialogues)
         {
             foreach (var dialogue in npc.NpcDialogues)
@@ -42,11 +47,6 @@ public class GameData : ScriptableObject
                 dialogue.AlreadyUsed = false;
             }
         }
-
-        Player.getSpaceWand = false;
-        Player.lifesRemaining = 5;
-        Player.posX = -19.09f;
-        Player.posY = 0.47f;
         useSaveData = false;
     }
 

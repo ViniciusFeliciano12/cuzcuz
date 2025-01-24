@@ -40,6 +40,7 @@ public class PauseController : MonoBehaviour
 
     public void ExitGame(){
         Time.timeScale = 1f;
+        gameController.SaveGame();
         SceneManager.LoadScene(0);
     }
 

@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -6,8 +7,10 @@ using static GameData;
 
 public class GameController : MonoBehaviour
 {
+    private string savePath;
     public GameObject textGameObject;
     public bool canAttack = true;
+    [SerializeField]
     private GameData gameData;
     public bool playerActive = true;
     private TextMeshProUGUI Text;
@@ -17,6 +20,7 @@ public class GameController : MonoBehaviour
         gameData = Resources.Load<GameData>("GameData");
         eventManager = FindObjectOfType<EventManager>();
         Text = textGameObject.GetComponent<TextMeshProUGUI>();
+        savePath = Path.Combine(Application.persistentDataPath, "save.json");
 
         LoadGame();
     }
@@ -38,6 +42,13 @@ public class GameController : MonoBehaviour
 
 
     #region DatabaseState
+
+    public void SaveGame()
+    {
+        string json = JsonUtility.ToJson(gameData, true);
+        File.WriteAllText(savePath, json);
+        Debug.Log("Jogo salvo em: " + savePath);
+    }
 
     private void LoadGame(){
         if (gameData == null){

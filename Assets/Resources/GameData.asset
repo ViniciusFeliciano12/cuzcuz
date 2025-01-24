@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbfcbe3a54e3ce48b33c34258bbdbb3, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  useSaveData: 0
+  useSaveData: 1
   Player:
-    posX: 16.978153
-    posY: 3.9466724
+    posX: -19.09
+    posY: 0.47
     lifesRemaining: 5
     getSpaceWand: 0
   NpcsDialogues:
