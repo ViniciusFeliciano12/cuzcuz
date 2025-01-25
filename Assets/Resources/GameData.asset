@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useSaveData: 1
   Player:
-    posX: -19.09
-    posY: 0.47
+    posX: 6.7629604
+    posY: -2.8400915
     lifesRemaining: 5
     getSpaceWand: 0
+    lanternGet: 0
   NpcsDialogues:
   - NpcName: Sarah
     NpcDialogues:
@@ -47,7 +48,7 @@ MonoBehaviour:
       - Name: Sarah
         Text: Irei liberar o selo. Boa sorte!
         EventKey: OpenPath
-      AlreadyUsed: 0
+      AlreadyUsed: 1
     - DialogueName: Sarah2
       lines:
       - Name: Sarah
@@ -61,3 +62,51 @@ MonoBehaviour:
           passar pelo abismo!"
         EventKey: 
       AlreadyUsed: 0
+    - DialogueName: SarahDarkness1
+      lines:
+      - Name: "Voc\xEA"
+        Text: "A caverna \xE9 muito escura. Eu n\xE3o consigo enxergar nada. Voc\xEA
+          pode me ajudar?"
+        EventKey: 
+      - Name: Sarah
+        Text: "Se voc\xEA quiser, eu posso te vender uma lanterna. Apenas preciso
+          de 10 gold coins, que voc\xEA pode conseguir dos monstros que moram na
+          floresta de onde voc\xEA veio."
+        EventKey: 
+      - Name: "Voc\xEA"
+        Text: Certo, eu buscarei eles. Obrigado.
+        EventKey: 
+      AlreadyUsed: 0
+    - DialogueName: SarahDarkness2
+      lines:
+      - Name: Sarah
+        Text: Me traga 10 gold coins e eu lhe venderei uma lanterna.
+        EventKey: 
+      AlreadyUsed: 0
+  - NpcName: Voce
+    NpcDialogues:
+    - DialogueName: InitialDialogue
+      lines:
+      - Name: "Voc\xEA"
+        Text: "J\xE1 fazem dias que eu estou perdido nessa floresta... finalmente
+          avistei uma casa no topo daquela montanha."
+        EventKey: 
+      - Name: "Voc\xEA"
+        Text: "Preciso verificar se algu\xE9m mora l\xE1 e descobrir como sair daqui."
+        EventKey: 
+      AlreadyUsed: 1
+    - DialogueName: Darkness1
+      lines:
+      - Name: "Voc\xEA"
+        Text: "N\xE3o consigo enxergar nada nessa escurid\xE3o."
+        EventKey: 
+      - Name: "Voc\xEA"
+        Text: Talvez eu deva voltar e falar com aquela mulher.
+        EventKey: 
+      AlreadyUsed: 1
+    - DialogueName: Darkness2
+      lines:
+      - Name: "Voc\xEA"
+        Text: "N\xE3o adianta tentar passar por aqui."
+        EventKey: 
+      AlreadyUsed: 1

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEngine.Rendering.Universal;
+using Cinemachine;
 
 public class HeroKnight : MonoBehaviour 
 {
@@ -18,9 +20,11 @@ public class HeroKnight : MonoBehaviour
     private Sensor_HeroKnight   m_wallSensorR2;
     private Sensor_HeroKnight   m_wallSensorL1;
     private Sensor_HeroKnight   m_wallSensorL2;
+    public Camera              mainCamera;  
+    private Light2D             light2D;
+    private Light2D             heroIllumination;
     private Collider2D   m_attackSensorR;
     private Collider2D   m_attackSensorL;
-    private GameController gameController;
     private bool                m_isDeath = false;
     private bool                m_isWallSliding = false;
     private bool                m_grounded = false;
@@ -40,7 +44,9 @@ public class HeroKnight : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
         m_audioSources = GetComponents<AudioSource>();
-        gameController = FindObjectOfType<GameController>();
+
+        light2D = transform.Find("Lanterna").GetComponent<Light2D>();
+        heroIllumination = transform.Find("HeroIllumination").GetComponent<Light2D>();
         m_groundSensor = transform.Find("GroundSensor").GetComponent<Sensor_HeroKnight>();
         m_wallSensorR1 = transform.Find("WallSensor_R1").GetComponent<Sensor_HeroKnight>();
         m_wallSensorR2 = transform.Find("WallSensor_R2").GetComponent<Sensor_HeroKnight>();
@@ -49,8 +55,8 @@ public class HeroKnight : MonoBehaviour
         m_attackSensorR = transform.Find("AttackSensor_R").GetComponent<Collider2D>();
         m_attackSensorL = transform.Find("AttackSensor_L").GetComponent<Collider2D>();
 
-        if (gameController != null){
-            transform.position = gameController.GetPlayerPosition();;
+        if (GameController.Instance != null){
+            transform.position = GameController.Instance.GetPlayerPosition();
         }
     }
 
@@ -59,7 +65,7 @@ public class HeroKnight : MonoBehaviour
             return;
         }
         
-        if (gameController.DecreaseCounter() > 0){
+        if (GameController.Instance.DecreaseCounter() > 0){
             m_animator.SetBool("Hurt", true);
         }
         else{
@@ -79,7 +85,7 @@ public class HeroKnight : MonoBehaviour
 
         if (timer >= 5f)
         {
-            gameController.SavePlayerPosition(transform);
+            GameController.Instance.SavePlayerPosition(transform);
             timer = 0f;
         }
     }
@@ -87,21 +93,26 @@ public class HeroKnight : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        if (m_isDeath || !gameController.playerActive){
+        if (m_isDeath || !GameController.Instance.playerActive || mainCamera == null || light2D == null){
             return;
         }
 
+        Vector3 lightPosition = mainCamera.WorldToScreenPoint(light2D.transform.position);
+
+        Vector3 direction = Input.mousePosition - lightPosition;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        light2D.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+
         m_timeSinceAttack += Time.deltaTime;
 
-        // Increase timer that checks roll duration
         if(m_rolling)
             m_rollCurrentTime += Time.deltaTime;
 
-        // Disable rolling if timer extends duration
         if(m_rollCurrentTime > m_rollDuration)
             m_rolling = false;
 
-        //Check if character just landed on the ground
         if (!m_grounded && m_groundSensor.State())
         {
             m_grounded = true;
@@ -144,18 +155,22 @@ public class HeroKnight : MonoBehaviour
         m_animator.SetBool("WallSlide", m_isWallSliding);
 
         //Death
-        if (Input.GetKeyDown("e") && !m_rolling)
+        if (Input.GetKeyDown(KeyCode.E) && !m_rolling)
         {
             m_animator.SetBool("noBlood", m_noBlood);
             m_animator.SetTrigger("Death");
         }
             
+        else if (Input.GetKeyDown(KeyCode.L) && GameController.Instance.VerifyFlag(GameFlags.Lantern)){
+            light2D.enabled = !light2D.enabled;
+            heroIllumination.enabled = !heroIllumination.enabled;
+        }
         //Hurt
-        else if (Input.GetKeyDown("q") && !m_rolling)
+        else if (Input.GetKeyDown(KeyCode.Q) && !m_rolling)
             m_animator.SetTrigger("Hurt");
 
         //Attack
-        else if(Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.5f && !m_rolling && gameController.canAttack)
+        else if(Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.5f && !m_rolling && GameController.Instance.canAttack)
         {
             m_currentAttack++;
 
@@ -186,7 +201,7 @@ public class HeroKnight : MonoBehaviour
             m_animator.SetBool("IdleBlock", false);
 
         // Roll
-        else if (Input.GetKeyDown("left shift") && !m_rolling && !m_isWallSliding)
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && !m_rolling && !m_isWallSliding)
         {
             m_rolling = true;
             m_animator.SetTrigger("Roll");
@@ -195,7 +210,7 @@ public class HeroKnight : MonoBehaviour
             
 
         //Jump
-        else if (Input.GetKeyDown("space") && m_grounded && !m_rolling)
+        else if (Input.GetKeyDown(KeyCode.Space) && m_grounded && !m_rolling)
         {
             m_animator.SetTrigger("Jump");
             m_audioSources[1].Play();

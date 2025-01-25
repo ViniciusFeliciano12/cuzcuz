@@ -2,20 +2,14 @@ using UnityEngine;
 
 public class CollectibleItem : MonoBehaviour
 {
-    private GameController gameController;
     private bool alreadyGet = false;
-
-    void Start()
-    {
-        gameController = FindObjectOfType<GameController>();
-    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player") && gameController != null && !alreadyGet){
+        if(other.CompareTag("Player") && GameController.Instance != null && !alreadyGet){
             Destroy(gameObject, 1f);
             alreadyGet = true;
-            gameController.UpdateDatabaseFlag(GameFlags.SpaceWand, true);
+            GameController.Instance.UpdateDatabaseFlag(GameFlags.SpaceWand, true);
         }
     }
 }

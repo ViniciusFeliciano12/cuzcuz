@@ -9,19 +9,17 @@ public class EventManager : MonoBehaviour
 {
     private Tilemap tilemap; 
     private Dictionary<string, UnityEngine.Events.UnityAction> eventMappings;
-    private GameController gameController;
     private CinemachineVirtualCamera cinemachineCamera; 
     void Start(){
         cinemachineCamera = FindObjectOfType<CinemachineVirtualCamera>();
         tilemap = FindObjectOfType<Tilemap>();
-        gameController = FindObjectOfType<GameController>();
 
         InstantiateMappings();
         VerifySavedGame();
     }
 
     private void VerifySavedGame(){
-        if(gameController.VerifyFlag(GameFlags.FirstBarrage)){
+        if(GameController.Instance.VerifyFlag(GameFlags.FirstBarrage)){
             RemoveFirstSeal();
         }
     }
@@ -44,7 +42,7 @@ public class EventManager : MonoBehaviour
 
     private System.Collections.IEnumerator HandleDialogueCameraSequence()
     {
-        gameController.playerActive = false;
+        GameController.Instance.playerActive = false;
 
         var lookAtHereTransform = GameObject.Find("LookAtHere");
         AudioSource looktAtHereAudioSource = null; 
@@ -67,7 +65,7 @@ public class EventManager : MonoBehaviour
             cinemachineCamera.Follow = player.transform;
         }
 
-        gameController.playerActive = true;
+        GameController.Instance.playerActive = true;
     }
 
     private void SarahDialogueOneAction(){

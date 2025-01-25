@@ -24,7 +24,7 @@ public class TeleportController : ClickableController
     {
         FloatEffect();
 
-        clickable = gameController.VerifyFlag(GameFlags.SpaceWand);
+        clickable = GameController.Instance.VerifyFlag(GameFlags.SpaceWand);
     }
 
     void OnMouseDown()

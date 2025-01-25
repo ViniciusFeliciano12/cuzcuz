@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HeartScript : MonoBehaviour
 {
     private bool alreadyGet = false;
-    private GameController gameController;
     private AudioSource audioSource;
     void Start(){
-        gameController = FindObjectOfType<GameController>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -17,8 +13,8 @@ public class HeartScript : MonoBehaviour
         if(other.CompareTag("Player") && !alreadyGet){
             alreadyGet = true;
 
-            if (gameController != null){
-                gameController.GoToMaxLife();
+            if (GameController.Instance != null){
+                GameController.Instance?.GoToMaxLife();
             }
 
             if (audioSource != null){

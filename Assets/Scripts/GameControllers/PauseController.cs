@@ -6,12 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseController : MonoBehaviour
 {
     public Canvas menuUI;
-    private GameController gameController;
     private bool isPaused = false;
-
-    void Start(){
-        gameController = FindObjectOfType<GameController>();
-    }
     
     void Update(){
         if(Input.GetKeyDown(KeyCode.Escape)){
@@ -33,19 +28,17 @@ public class PauseController : MonoBehaviour
         Time.timeScale = 1f;    
         isPaused = false;
         
-        if (gameController != null){
-            gameController.playerActive = true;
-        }
+        GameController.Instance.playerActive = true;
     }
 
     public void ExitGame(){
         Time.timeScale = 1f;
-        gameController.SaveGame();
+        GameController.Instance.SaveGame();
         SceneManager.LoadScene(0);
     }
 
     public void ReloadGame(int actualScene){
-        gameController.ResetGame();
+        GameController.Instance.ResetGame();
         ContinueGame();
         SceneManager.LoadScene(actualScene);
     }
@@ -58,8 +51,7 @@ public class PauseController : MonoBehaviour
         Time.timeScale = 0.00000001f;
         isPaused = true;
         
-        if (gameController != null){
-            gameController.playerActive = false;
-        }
+        GameController.Instance.playerActive = false;
+        
     }
 }

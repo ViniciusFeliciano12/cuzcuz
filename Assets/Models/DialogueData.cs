@@ -31,6 +31,7 @@ public class GameData : ScriptableObject
         public float posY = 0.47f;
         public int lifesRemaining = 5;
         public bool getSpaceWand = false;
+        public bool lanternGet = false;
     }
 
     public void ResetData()
@@ -38,6 +39,7 @@ public class GameData : ScriptableObject
         Player.posX = -19.09f;
         Player.posY = 0.47f;
         Player.getSpaceWand = false;
+        Player.lanternGet = false;
         Player.lifesRemaining = 5;
 
         foreach (var npc in NpcsDialogues)
