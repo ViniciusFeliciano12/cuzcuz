@@ -44,7 +44,7 @@ public class HeroKnight : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
         m_audioSources = GetComponents<AudioSource>();
-
+  
         light2D = transform.Find("Lanterna").GetComponent<Light2D>();
         heroIllumination = transform.Find("HeroIllumination").GetComponent<Light2D>();
         m_groundSensor = transform.Find("GroundSensor").GetComponent<Sensor_HeroKnight>();
