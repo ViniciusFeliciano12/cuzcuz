@@ -24,7 +24,7 @@ public class DialogueTriggerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (gameController != null && col is not CircleCollider2D && col.CompareTag("Player")){
+        if (gameController != null && col is not CircleCollider2D && col.CompareTag("Player") && !gameController.VerifyFlag(flagToDestroy)){
             gameController.PlayDialogue(dialogueKey, specificDialogue);
         }
     }

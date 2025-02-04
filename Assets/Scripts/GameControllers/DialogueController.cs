@@ -56,8 +56,12 @@ public class DialogueController : MonoBehaviour
             {
                 if (!GameController.Instance.VerifyFlag(GameFlags.SpaceWand))
                 {
-                    if (dialogueData.FirstOrDefault(dialogue => dialogue.NpcName == "Voce").NpcDialogues[1].AlreadyUsed){
-                        CurrentDialogue = dialogues[3].AlreadyUsed ? dialogues[4] : dialogues[3];
+                    if (dialogueData.FirstOrDefault(dialogue => dialogue.NpcName == "Voce").NpcDialogues[1].AlreadyUsed && !dialogues[5].AlreadyUsed){
+                        if (GameController.Instance.VerifyFlag(GameFlags.Coins, 10)){
+                            CurrentDialogue = dialogues[5];
+                        }else{
+                            CurrentDialogue = dialogues[3].AlreadyUsed ? dialogues[4] : dialogues[3];
+                        }
                     }else{
                         CurrentDialogue = dialogues[0].AlreadyUsed ? dialogues[1] : dialogues[0];
                     }

@@ -293,7 +293,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -352,9 +352,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138f3a4c69ff8484ab3abba4aa00905a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBoss: 0
   lifes: 5
-  player: {fileID: 0}
+  droppables: []
+  enemyFlag: 0
 --- !u!58 &1740634917255087282
 CircleCollider2D:
   m_ObjectHideFlags: 0

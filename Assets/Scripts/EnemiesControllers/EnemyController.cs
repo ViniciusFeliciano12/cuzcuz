@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public bool isBoss;
     public int lifes;
-    public Transform player; 
+    public string[] droppables;
+    public Enemies enemyFlag;
+    protected Transform player; 
     protected Animator animator;
     protected AudioSource[] audioSources;
     protected SpriteRenderer spriteRenderer;
     protected Vector2 randomDirection;
     protected Collider2D attackColiderR;
     protected Collider2D attackColiderL;
-    protected Action dropSomething;
     protected bool facingLeft;
     protected float changeDirectionTime = 3f;
     protected float directionTimer;
@@ -28,8 +28,18 @@ public class EnemyController : MonoBehaviour
         audioSources = GetComponents<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
+        VerifyBossKilled();
     }
 
+    private void VerifyBossKilled(){
+        if (enemyFlag != Enemies.NoBoss){
+            GameController gameController = FindObjectOfType<GameController>();
+            if(gameController.VerifyBossKilled(enemyFlag)){
+                Destroy(gameObject, 0f);
+            }
+        }
+    }
     
     // Update is called once per frame
     void Update()
@@ -55,24 +65,30 @@ public class EnemyController : MonoBehaviour
         }   
     }
 
+    private void DropItem(){
+        foreach(var item in droppables){
+            GameObject heartPrefab = Resources.Load<GameObject>(item);
+            Instantiate(heartPrefab, transform.position, Quaternion.identity);
+        }
+    }
+
     private void Die(){
         isDeath = true;
         animator.SetBool("Hit", true);
         animator.SetBool("Death", true);  
         audioSources[1].Play(); 
 
-        dropSomething?.Invoke();
+        DropItem();
 
         Destroy(gameObject, 1f); 
     }
 
     private void TakeDamage(){
-        if (!isBoss){
+        if (enemyFlag != Enemies.NoBoss){
             animator.SetBool("Hit", true);
         }
         audioSources[2].Play(); 
     }
-
 
     private void MoveAround()
     {
@@ -104,7 +120,7 @@ public class EnemyController : MonoBehaviour
         if (player != null){
             float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
-            if (distanceToPlayer > (isBoss ? 3F : 2F))
+            if (distanceToPlayer > (enemyFlag != Enemies.NoBoss ? 3F : 2F))
             {
                 if (animator != null){
                     animator.SetBool("Run", true);
@@ -139,6 +155,8 @@ public class EnemyController : MonoBehaviour
     {
         if (other.transform.CompareTag("Player"))
         {
+            player = other.transform;
+
             Vector2 directionToPlayer = other.transform.position - transform.position;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer);
 

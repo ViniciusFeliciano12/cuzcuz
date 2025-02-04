@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     private string savePath;
     public bool canAttack = true;
     private TextMeshProUGUI Text;
+    private TextMeshProUGUI CoinsText;
     public static GameController Instance { get; private set; }
 
     [SerializeField]
@@ -33,6 +34,8 @@ public class GameController : MonoBehaviour
         eventManager = FindObjectOfType<EventManager>();
         dialogueController = FindObjectOfType<DialogueController>();
         Text = GameObject.Find("Life").GetComponent<TextMeshProUGUI>();
+        CoinsText = GameObject.Find("CoinsText").GetComponent<TextMeshProUGUI>();
+
 
         savePath = Path.Combine(Application.persistentDataPath, "save.json");
 
@@ -66,11 +69,9 @@ public class GameController : MonoBehaviour
     }
 
     public void GameOver(){
-        if (gameData == null){
-            gameData = Resources.Load<GameData>("GameData");
-            gameData.ResetData();
-            SceneManager.LoadScene(0);
-        } 
+        ResetGame();
+        SaveGame();
+        SceneManager.LoadScene(0);
     }
 
 
@@ -89,6 +90,7 @@ public class GameController : MonoBehaviour
         if (gameData != null && Text != null){
             gameData.useSaveData = true;
             Text.text = gameData.Player.lifesRemaining.ToString() + "/5";
+            CoinsText.text = gameData.Player.coins.ToString();
         }
     }
 
@@ -102,6 +104,8 @@ public class GameController : MonoBehaviour
         if (gameData != null){
             switch(flag){
                 case GameFlags.SpaceWand: gameData.Player.getSpaceWand = state; break;
+                case GameFlags.Coins: gameData.Player.coins++; CoinsText.text = gameData.Player.coins.ToString(); break;
+                case GameFlags.Lantern: gameData.Player.lanternGet = state; break;
                 default: break;
             }
         }
@@ -111,23 +115,25 @@ public class GameController : MonoBehaviour
 
     #region VerifyFlags
 
-    public bool VerifyFlag(GameFlags flag){
+    public bool VerifyFlag(GameFlags flag, int? quantity = null){
         if (gameData != null){
             return flag switch
             {
                 GameFlags.SpaceWand => gameData.Player.getSpaceWand,
+                GameFlags.Coins => gameData.Player.coins >= quantity,
                 GameFlags.FirstBarrage => gameData.NpcsDialogues.FirstOrDefault(dialogue => dialogue.NpcName == "Sarah").NpcDialogues.FirstOrDefault().AlreadyUsed,
+                GameFlags.Lantern => gameData.Player.lanternGet,
                 _ => false,
             };        
         }
         return false;
     }
 
-    public bool VerifyBossKilled(Bosses boss){
+    public bool VerifyBossKilled(Enemies boss){
         if (gameData != null){
             return boss switch
             {
-                Bosses.FirstGolemBoss => gameData.Player.getSpaceWand,
+                Enemies.FirstGolemBoss => gameData.Player.getSpaceWand,
                 _ => false,
             };
         }
@@ -198,11 +204,13 @@ public class GameController : MonoBehaviour
 
 public enum GameFlags
 {
+    Coins,
     SpaceWand,
     FirstBarrage,
     Lantern,
 }
 
-public enum Bosses{
+public enum Enemies{
+    NoBoss,
     FirstGolemBoss,
 }

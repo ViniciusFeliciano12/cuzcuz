@@ -30,17 +30,21 @@ public class GameData : ScriptableObject
         public float posX = -19.09f;
         public float posY = 0.47f;
         public int lifesRemaining = 5;
+        public int coins = 0;
         public bool getSpaceWand = false;
         public bool lanternGet = false;
     }
 
     public void ResetData()
     {
+        useSaveData = false;
+        
         Player.posX = -19.09f;
         Player.posY = 0.47f;
         Player.getSpaceWand = false;
         Player.lanternGet = false;
         Player.lifesRemaining = 5;
+        Player.coins = 0;
 
         foreach (var npc in NpcsDialogues)
         {
@@ -49,7 +53,6 @@ public class GameData : ScriptableObject
                 dialogue.AlreadyUsed = false;
             }
         }
-        useSaveData = false;
     }
 
     public bool useSaveData = false;

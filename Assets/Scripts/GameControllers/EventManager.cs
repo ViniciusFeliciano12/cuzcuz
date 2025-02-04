@@ -30,6 +30,7 @@ public class EventManager : MonoBehaviour
         eventMappings = new Dictionary<string, UnityEngine.Events.UnityAction>
         {
             { "OpenPath", SarahDialogueOneAction },
+            { "GiveLantern", SarahGiveYouLantern }
         };
     }
 
@@ -70,6 +71,19 @@ public class EventManager : MonoBehaviour
 
     private void SarahDialogueOneAction(){
         StartCoroutine(HandleDialogueCameraSequence());
+    }
+
+    private void SarahGiveYouLantern(){
+        GameObject lanternPrefab = Resources.Load<GameObject>("IlluminateRing");
+
+        Vector3 position = new Vector3
+        {
+            x = 18.4f,
+            y = 4.5f,
+            z = 0f
+        };
+
+        Instantiate(lanternPrefab, position, Quaternion.identity);
     }
 
     //eventos padrões

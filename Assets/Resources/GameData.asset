@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useSaveData: 1
   Player:
-    posX: 6.7629604
-    posY: -2.8400915
+    posX: -51.2846
+    posY: -6.053296
     lifesRemaining: 5
-    getSpaceWand: 0
-    lanternGet: 0
+    coins: 14
+    getSpaceWand: 1
+    lanternGet: 1
   NpcsDialogues:
   - NpcName: Sarah
     NpcDialogues:
@@ -54,14 +55,14 @@ MonoBehaviour:
       - Name: Sarah
         Text: Derrote o monstro nas profundezas da floresta, viajante!
         EventKey: 
-      AlreadyUsed: 0
+      AlreadyUsed: 1
     - DialogueName: Sarah3
       lines:
       - Name: Sarah
         Text: "Parab\xE9ns! Voc\xEA conseguiu matar ele! Muito obrigada. Agora conseguir\xE1
           passar pelo abismo!"
         EventKey: 
-      AlreadyUsed: 0
+      AlreadyUsed: 1
     - DialogueName: SarahDarkness1
       lines:
       - Name: "Voc\xEA"
@@ -69,7 +70,7 @@ MonoBehaviour:
           pode me ajudar?"
         EventKey: 
       - Name: Sarah
-        Text: "Se voc\xEA quiser, eu posso te vender uma lanterna. Apenas preciso
+        Text: "Se voc\xEA quiser, eu posso te vender um anel iluminador. Apenas preciso
           de 10 gold coins, que voc\xEA pode conseguir dos monstros que moram na
           floresta de onde voc\xEA veio."
         EventKey: 
@@ -80,9 +81,15 @@ MonoBehaviour:
     - DialogueName: SarahDarkness2
       lines:
       - Name: Sarah
-        Text: Me traga 10 gold coins e eu lhe venderei uma lanterna.
+        Text: Me traga 10 gold coins e eu lhe venderei o anel iluminador.
         EventKey: 
       AlreadyUsed: 0
+    - DialogueName: SarahGiveYouLantern
+      lines:
+      - Name: Sarah
+        Text: Obrigada pelas moedas. Tome aqui seu anel.
+        EventKey: GiveLantern
+      AlreadyUsed: 1
   - NpcName: Voce
     NpcDialogues:
     - DialogueName: InitialDialogue
