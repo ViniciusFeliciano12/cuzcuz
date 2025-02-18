@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useSaveData: 1
   Player:
-    posX: -51.2846
-    posY: -6.053296
+    posX: 10.327359
+    posY: -0.6018626
     lifesRemaining: 5
-    coins: 14
-    getSpaceWand: 1
-    lanternGet: 1
+    coins: 0
+    getSpaceWand: 0
+    lanternGet: 0
   NpcsDialogues:
   - NpcName: Sarah
     NpcDialogues:
@@ -55,14 +55,14 @@ MonoBehaviour:
       - Name: Sarah
         Text: Derrote o monstro nas profundezas da floresta, viajante!
         EventKey: 
-      AlreadyUsed: 1
+      AlreadyUsed: 0
     - DialogueName: Sarah3
       lines:
       - Name: Sarah
         Text: "Parab\xE9ns! Voc\xEA conseguiu matar ele! Muito obrigada. Agora conseguir\xE1
           passar pelo abismo!"
         EventKey: 
-      AlreadyUsed: 1
+      AlreadyUsed: 0
     - DialogueName: SarahDarkness1
       lines:
       - Name: "Voc\xEA"
@@ -89,7 +89,7 @@ MonoBehaviour:
       - Name: Sarah
         Text: Obrigada pelas moedas. Tome aqui seu anel.
         EventKey: GiveLantern
-      AlreadyUsed: 1
+      AlreadyUsed: 0
   - NpcName: Voce
     NpcDialogues:
     - DialogueName: InitialDialogue
@@ -110,10 +110,10 @@ MonoBehaviour:
       - Name: "Voc\xEA"
         Text: Talvez eu deva voltar e falar com aquela mulher.
         EventKey: 
-      AlreadyUsed: 1
+      AlreadyUsed: 0
     - DialogueName: Darkness2
       lines:
       - Name: "Voc\xEA"
         Text: "N\xE3o adianta tentar passar por aqui."
         EventKey: 
-      AlreadyUsed: 1
+      AlreadyUsed: 0

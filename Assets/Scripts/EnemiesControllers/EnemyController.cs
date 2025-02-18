@@ -74,7 +74,7 @@ public class EnemyController : MonoBehaviour
 
     private void Die(){
         isDeath = true;
-        animator.SetBool("Hit", true);
+        animator.SetTrigger("Hit");
         animator.SetBool("Death", true);  
         audioSources[1].Play(); 
 
@@ -84,9 +84,7 @@ public class EnemyController : MonoBehaviour
     }
 
     private void TakeDamage(){
-        if (enemyFlag != Enemies.NoBoss){
-            animator.SetBool("Hit", true);
-        }
+        animator.SetTrigger("Hit");
         audioSources[2].Play(); 
     }
 

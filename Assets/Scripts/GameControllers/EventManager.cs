@@ -43,6 +43,8 @@ public class EventManager : MonoBehaviour
 
     private System.Collections.IEnumerator HandleDialogueCameraSequence()
     {
+        Debug.Log("Player not active");
+        GameController.Instance.nextDialogueEnabled = false;
         GameController.Instance.playerActive = false;
 
         var lookAtHereTransform = GameObject.Find("LookAtHere");
@@ -67,6 +69,7 @@ public class EventManager : MonoBehaviour
         }
 
         GameController.Instance.playerActive = true;
+        GameController.Instance.nextDialogueEnabled = true;
     }
 
     private void SarahDialogueOneAction(){
@@ -74,9 +77,11 @@ public class EventManager : MonoBehaviour
     }
 
     private void SarahGiveYouLantern(){
+        GameController.Instance.DecreaseCoins(10);
+
         GameObject lanternPrefab = Resources.Load<GameObject>("IlluminateRing");
 
-        Vector3 position = new Vector3
+        Vector3 position = new()
         {
             x = 18.4f,
             y = 4.5f,
@@ -100,7 +105,7 @@ public class EventManager : MonoBehaviour
 
             tilemap.RefreshAllTiles();
 
-            if (audioSource !=  null){
+            if (audioSource != null){
                 audioSource.Play();
             }
 

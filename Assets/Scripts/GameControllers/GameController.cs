@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameData gameData;
     public bool playerActive = true;
+    public bool nextDialogueEnabled = true;
     private EventManager eventManager;
     private DialogueController dialogueController;
 
@@ -172,6 +173,12 @@ public class GameController : MonoBehaviour
             return gameData.Player.lifesRemaining;
         }
         return 0;
+    }
+
+    public void DecreaseCoins(int quantity){
+        if(gameData != null){
+            gameData.Player.coins -= quantity;
+        }
     }
 
     public void GoToMaxLife(){

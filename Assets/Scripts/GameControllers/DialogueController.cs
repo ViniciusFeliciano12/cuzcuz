@@ -8,7 +8,6 @@ public class DialogueController : MonoBehaviour
     public Canvas dialogueCanvas; 
     private TextMeshProUGUI nameText;  
     private TextMeshProUGUI messageText;
-    
     private NpcDialogue[] dialogueData;  
     private Dialogues CurrentDialogue;
     private int currentDialogueIndex = 0; 
@@ -89,7 +88,7 @@ public class DialogueController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Input.GetMouseButtonDown(0) && dialogueCanvas.enabled)
+        if (Input.GetMouseButtonDown(0) && dialogueCanvas.enabled && GameController.Instance.nextDialogueEnabled)
         {
             ShowNextDialogue();
         }
