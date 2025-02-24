@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useSaveData: 1
   Player:
-    posX: 10.327359
-    posY: -0.6018626
+    posX: -11.7131405
+    posY: -2.0533216
     lifesRemaining: 5
     coins: 0
     getSpaceWand: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
       - Name: Sarah
         Text: Irei liberar o selo. Boa sorte!
         EventKey: OpenPath
-      AlreadyUsed: 1
+      AlreadyUsed: 0
     - DialogueName: Sarah2
       lines:
       - Name: Sarah
@@ -87,7 +87,8 @@ MonoBehaviour:
     - DialogueName: SarahGiveYouLantern
       lines:
       - Name: Sarah
-        Text: Obrigada pelas moedas. Tome aqui seu anel.
+        Text: "Obrigada pelas moedas. Tome aqui seu anel. Fa\xE7a o o L para acender
+          o anel."
         EventKey: GiveLantern
       AlreadyUsed: 0
   - NpcName: Voce
@@ -100,7 +101,7 @@ MonoBehaviour:
         EventKey: 
       - Name: "Voc\xEA"
         Text: "Preciso verificar se algu\xE9m mora l\xE1 e descobrir como sair daqui."
-        EventKey: 
+        EventKey: InitialDialogue
       AlreadyUsed: 1
     - DialogueName: Darkness1
       lines:

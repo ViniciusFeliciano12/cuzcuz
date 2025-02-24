@@ -30,11 +30,13 @@ public class EventManager : MonoBehaviour
         eventMappings = new Dictionary<string, UnityEngine.Events.UnityAction>
         {
             { "OpenPath", SarahDialogueOneAction },
-            { "GiveLantern", SarahGiveYouLantern }
+            { "GiveLantern", SarahGiveYouLantern },
+            { "InitialDialogue", InitialDialogue }
         };
     }
 
     public void InvokeEvent(string eventKey){
+        Debug.Log("invoke event");
         if (eventMappings.ContainsKey(eventKey))
         {
             eventMappings[eventKey].Invoke();
@@ -74,6 +76,34 @@ public class EventManager : MonoBehaviour
 
     private void SarahDialogueOneAction(){
         StartCoroutine(HandleDialogueCameraSequence());
+    }
+
+    private void InitialDialogue(){
+        Debug.Log("iniciou");
+        StartCoroutine(handleCamera());
+    }
+    private System.Collections.IEnumerator handleCamera(){
+        Debug.Log("handleCamera");
+        GameController.Instance.nextDialogueEnabled = false;
+        GameController.Instance.playerActive = false;
+
+        var lookAtHereTransform = GameObject.Find("LookAtHere2");
+
+        if (lookAtHereTransform != null)
+        {
+            cinemachineCamera.Follow = lookAtHereTransform.transform;
+        }
+
+        yield return new WaitForSeconds(2.0f);
+
+        HeroKnight player = FindObjectOfType<HeroKnight>();
+        if (player != null)
+        {
+            cinemachineCamera.Follow = player.transform;
+        }
+
+        GameController.Instance.playerActive = true;
+        GameController.Instance.nextDialogueEnabled = true;
     }
 
     private void SarahGiveYouLantern(){
